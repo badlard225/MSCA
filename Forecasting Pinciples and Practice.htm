@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)https://www.otexts.org/book/fpp -->
+<html lang="en" dir="ltr" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:og="http://ogp.me/ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:sioc="http://rdfs.org/sioc/ns#" xmlns:sioct="http://rdfs.org/sioc/types#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" class="js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="shortcut icon" href="https://www.otexts.org/favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="shortlink" href="https://www.otexts.org/node/89">
+<script type="text/javascript" async="" src="./Forecasting_ principles and practice _ OTexts_files/ga.js"></script><script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({
+showProcessingMessages: false, 
+messageStyle: "simple",
+tex2jax: { 
+  	inlineMath: [['$','$'], ['\\(','\\)']],
+  	displayMath: [ ['$$','$$'], ['\[','\]'] ],
+  	processEscapes: true
+  	},
+  jax: ["input/TeX", "output/SVG"],
+  TeX: { 
+    Macros: {
+      RR: "{\\textbf{R}}",
+      bm: ["{\\boldsymbol{#1}}",1],
+      pred: ["{\\hat{#1}_{#2|#3}}",3],
+      damped: "{_\\text{d}}",
+      AICc: "{\\text{AIC$_{\\text{c}}$}}",
+      pounds: "{\\it\\unicode{xA3}}"
+    },
+    noErrors: { disabled: true }
+  },
+  SVG: {
+    undefinedFamily: "STIXGeneral, 'Arial Unicode MS', serif"
+  }
+});
+</script><meta name="Generator" content="Drupal 7 (http://drupal.org)">
+<link rel="canonical" href="https://www.otexts.org/book/fpp">
+<title>Forecasting: principles and practice | OTexts</title>
+<style type="text/css" media="all">@import url("https://www.otexts.org/modules/system/system.base.css?ob9d9j");
+@import url("https://www.otexts.org/modules/system/system.menus.css?ob9d9j");
+@import url("https://www.otexts.org/modules/system/system.messages.css?ob9d9j");
+@import url("https://www.otexts.org/modules/system/system.theme.css?ob9d9j");</style>
+<style type="text/css" media="all">@import url("https://www.otexts.org/sites/all/modules/footnotes/footnotes.css?ob9d9j");
+@import url("https://www.otexts.org/modules/book/book.css?ob9d9j");
+@import url("https://www.otexts.org/modules/comment/comment.css?ob9d9j");
+@import url("https://www.otexts.org/modules/field/theme/field.css?ob9d9j");
+@import url("https://www.otexts.org/sites/all/modules/mollom/mollom.css?ob9d9j");
+@import url("https://www.otexts.org/modules/node/node.css?ob9d9j");
+@import url("https://www.otexts.org/modules/search/search.css?ob9d9j");
+@import url("https://www.otexts.org/modules/user/user.css?ob9d9j");
+@import url("https://www.otexts.org/sites/all/modules/video_filter/video_filter.css?ob9d9j");
+@import url("https://www.otexts.org/modules/forum/forum.css?ob9d9j");
+@import url("https://www.otexts.org/sites/all/modules/views/css/views.css?ob9d9j");
+@import url("https://www.otexts.org/sites/all/modules/caption_filter/caption-filter.css?ob9d9j");</style>
+<link type="text/css" rel="stylesheet" href="./Forecasting_ principles and practice _ OTexts_files/css" media="all">
+<link type="text/css" rel="stylesheet" href="./Forecasting_ principles and practice _ OTexts_files/css(1)" media="all">
+<link type="text/css" rel="stylesheet" href="./Forecasting_ principles and practice _ OTexts_files/css(2)" media="all">
+<style type="text/css" media="all">@import url("https://www.otexts.org/sites/all/modules/amazon/amazon.css?ob9d9j");
+@import url("https://www.otexts.org/sites/all/modules/ctools/css/ctools.css?ob9d9j");
+@import url("https://www.otexts.org/sites/all/modules/dhtml_menu/dhtml_menu.css?ob9d9j");
+@import url("https://www.otexts.org/sites/all/modules/geshifilter/geshifilter.css?ob9d9j");
+@import url("https://www.otexts.org/sites/all/modules/panels/css/panels.css?ob9d9j");
+@import url("https://www.otexts.org/sites/all/modules/typogrify/typogrify.css?ob9d9j");
+@import url("https://www.otexts.org/sites/all/modules/panels/plugins/layouts/twocol_bricks/twocol_bricks.css?ob9d9j");
+@import url("https://www.otexts.org/sites/all/modules/og_menu/og_menu.css?ob9d9j");</style>
+<style type="text/css" media="all">@import url("https://www.otexts.org/sites/all/themes/business/style.css?ob9d9j");
+@import url("https://www.otexts.org/sites/default/files/color/business-100cef39/colors.css?ob9d9j");
+@import url("https://www.otexts.org/sites/default/files/google_fonts.css?ob9d9j");</style>
+<style type="text/css" media="all">@import url("https://www.otexts.org/sites/default/files/css_injector/css_injector_2.css?ob9d9j");
+@import url("https://www.otexts.org/sites/default/files/css_injector/css_injector_3.css?ob9d9j");
+@import url("https://www.otexts.org/sites/default/files/css_injector/css_injector_4.css?ob9d9j");
+@import url("https://www.otexts.org/sites/default/files/css_injector/css_injector_5.css?ob9d9j");
+@import url("https://www.otexts.org/sites/default/files/css_injector/css_injector_6.css?ob9d9j");
+@import url("https://www.otexts.org/sites/default/files/css_injector/css_injector_7.css?ob9d9j");
+@import url("https://www.otexts.org/sites/default/files/css_injector/css_injector_8.css?ob9d9j");</style>
+<script type="text/javascript" src="./Forecasting_ principles and practice _ OTexts_files/jquery.js"></script>
+<script type="text/javascript" src="./Forecasting_ principles and practice _ OTexts_files/jquery.once.js"></script>
+<script type="text/javascript" src="./Forecasting_ principles and practice _ OTexts_files/drupal.js"></script>
+<script type="text/javascript" src="./Forecasting_ principles and practice _ OTexts_files/admin_devel.js"></script>
+<script type="text/javascript" src="./Forecasting_ principles and practice _ OTexts_files/caption-filter.js"></script>
+<script type="text/javascript" src="./Forecasting_ principles and practice _ OTexts_files/dhtml_menu.js"></script>
+<script type="text/javascript" src="./Forecasting_ principles and practice _ OTexts_files/MathJax.js"></script>
+<script type="text/javascript" src="./Forecasting_ principles and practice _ OTexts_files/panels.js"></script>
+<script type="text/javascript" src="./Forecasting_ principles and practice _ OTexts_files/disqus.js"></script>
+<script type="text/javascript" src="./Forecasting_ principles and practice _ OTexts_files/googleanalytics.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var _gaq = _gaq || [];_gaq.push(["_setAccount", "UA-27933797-2"]);_gaq.push(["_setDomainName", "none"]);_gaq.push(["_setAllowLinker", true]);_gaq.push(["_trackPageview"]);(function() {var ga = document.createElement("script");ga.type = "text/javascript";ga.async = true;ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga, s);})();
+//--><!]]>
+</script>
+<script type="text/javascript" src="./Forecasting_ principles and practice _ OTexts_files/superfish.js"></script>
+<script type="text/javascript" src="./Forecasting_ principles and practice _ OTexts_files/supersubs.js"></script>
+<script type="text/javascript" src="./Forecasting_ principles and practice _ OTexts_files/sfmenu.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"business","theme_token":"PCI2VBa_Au59HeSwXCZa2xpNfixfX-wqx2UjDmTL9kk","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/admin_menu\/admin_devel\/admin_devel.js":1,"sites\/all\/modules\/caption_filter\/js\/caption-filter.js":1,"sites\/all\/modules\/dhtml_menu\/dhtml_menu.js":1,"\/sites\/all\/libraries\/mathjax\/MathJax.js?config=TeX-AMS-MML_HTMLorMML":1,"sites\/all\/modules\/panels\/js\/panels.js":1,"sites\/all\/modules\/disqus\/disqus.js":1,"sites\/all\/modules\/google_analytics\/googleanalytics.js":1,"0":1,"sites\/all\/themes\/business\/js\/superfish.js":1,"sites\/all\/themes\/business\/js\/supersubs.js":1,"sites\/all\/themes\/business\/js\/sfmenu.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"sites\/all\/modules\/footnotes\/footnotes.css":1,"modules\/book\/book.css":1,"modules\/comment\/comment.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/video_filter\/video_filter.css":1,"modules\/forum\/forum.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/caption_filter\/caption-filter.css":1,"https:\/\/fonts.googleapis.com\/css?family=Droid+Sans\u0026subset=latin":1,"https:\/\/fonts.googleapis.com\/css?family=Droid+Sans+Mono\u0026subset=latin":1,"https:\/\/fonts.googleapis.com\/css?family=Droid+Serif\u0026subset=latin":1,"sites\/all\/modules\/amazon\/amazon.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/dhtml_menu\/dhtml_menu.css":1,"sites\/all\/modules\/geshifilter\/geshifilter.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/modules\/typogrify\/typogrify.css":1,"sites\/all\/modules\/panels\/plugins\/layouts\/twocol_bricks\/twocol_bricks.css":1,"sites\/all\/modules\/og_menu\/og_menu.css":1,"sites\/all\/themes\/business\/style.css":1,"sites\/all\/themes\/business\/color\/colors.css":1,"public:\/\/google_fonts.css":1,"public:\/\/css_injector\/css_injector_2.css":1,"public:\/\/css_injector\/css_injector_3.css":1,"public:\/\/css_injector\/css_injector_4.css":1,"public:\/\/css_injector\/css_injector_5.css":1,"public:\/\/css_injector\/css_injector_6.css":1,"public:\/\/css_injector\/css_injector_7.css":1,"public:\/\/css_injector\/css_injector_8.css":1}},"dhtmlMenu":{"nav":"open","animation":{"effects":{"height":"height","opacity":"opacity"},"speed":500},"effects":{"siblings":"close-same-tree","children":"none","remember":0},"filter":{"type":"blacklist","list":[]}},"disqus":{"domain":"otexts","url":"https:\/\/www.otexts.org\/book\/fpp","title":"Forecasting: principles and practice","identifier":"node\/89"},"googleanalytics":{"trackOutbound":1,"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip","trackDomainMode":"2","trackCrossDomains":["otexts.com","otexts.org"]},"ogContext":{"groupType":"node","gid":"89"}});
+//--><!]]>
+</script>
+<!--[if lt IE 9]><script src="/sites/all/themes/business/js/html5.js"></script><![endif]-->
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.3999ac261b914f8b8b5e85df0ff3eaea.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.5f8e47303ecf1055cd7c6905466d140a.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.33067ddbd4792de0b384ceb588602715.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"><script src="./Forecasting_ principles and practice _ OTexts_files/alfalfa.4a5fcca1fe50a757044dfd331b660625.js" async="" charset="UTF-8"></script></head>
+<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-89 node-type-group og-context og-context-node og-context-node-89 disqus-processed"><div id="MathJax_Message" style="display: none;"></div>
+    
+<div id="wrap">
+
+  <header id="header" class="clearfix" role="banner">
+
+    <div>
+             <div id="logo">
+        <a href="https://www.otexts.org/" title="Home"><img src="./Forecasting_ principles and practice _ OTexts_files/Mainlogo.png" alt="Home"></a>
+        </div>
+            <hgroup id="sitename">
+        <h2><a href="https://www.otexts.org/" title="Home"></a></h2>
+        <p></p><!--site slogan-->
+      </hgroup>
+    </div>
+    <nav id="navigation" class="clearfix" role="navigation">
+      <div id="main-menu">
+        <ul class="menu sf-js-enabled sf-shadow"><li class="first leaf dhtml-menu" id="dhtml_menu-962"><a href="https://www.otexts.org/" title="">Home</a></li>
+<li class="leaf dhtml-menu" id="dhtml_menu-967"><a href="https://www.otexts.org/books">Books</a></li>
+<li class="leaf dhtml-menu" id="dhtml_menu-2941"><a href="https://www.otexts.org/authors" title="All the OTexts authors">Authors</a></li>
+<li class="dhtml-menu collapsed start-collapsed" id="dhtml_menu-961"><a href="https://www.otexts.org/about" class="sf-with-ul">About<span class="sf-sub-indicator"> »</span></a><ul class="menu sf-js-enabled sf-shadow" style="float: none; width: 16em; display: none; visibility: hidden;"><li class="first leaf dhtml-menu" id="dhtml_menu-2959" style="white-space: normal; float: left; width: 100%;"><a href="https://www.otexts.org/about" title="" style="float: none; width: auto;">Our vision</a></li>
+<li class="leaf dhtml-menu" id="dhtml_menu-3031" style="white-space: normal; float: left; width: 100%;"><a href="https://www.otexts.org/about/who-we-are" style="float: none; width: auto;">Who we are</a></li>
+<li class="leaf dhtml-menu" id="dhtml_menu-3640" style="white-space: normal; float: left; width: 100%;"><a href="https://www.otexts.org/about/book-citation" style="float: none; width: auto;">Book citation</a></li>
+<li class="last leaf dhtml-menu" id="dhtml_menu-2957" style="white-space: normal; float: left; width: 100%;"><a href="https://www.otexts.org/about/contact" style="float: none; width: auto;">Contact</a></li>
+</ul></li>
+<li class="last leaf dhtml-menu" id="dhtml_menu-3227"><a href="https://www.otexts.org/donation">Donation</a></li>
+</ul>      </div>
+    </nav><!-- end main-menu -->
+  </header>
+  
+  <div class="region region-header">
+  <div id="block-search-form" class="block block-search">
+
+      
+  <div class="content">
+    <form action="https://www.otexts.org/book/fpp" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text">
+</div>
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Search" class="form-submit"></div><input type="hidden" name="form_build_id" value="form-yEl3t_5y7bnbocNhsoZEuJe29Kfq0uybxUUC2xSvslk">
+<input type="hidden" name="form_id" value="search_block_form">
+</div>
+</div></form>  </div>
+  
+</div> <!-- /.block -->
+</div>
+ <!-- /.region -->
+
+  
+  <div id="main">
+    <section id="post-content" role="main">
+    <div id="breadcrumbs"><h2 class="element-invisible">You are here</h2><nav class="breadcrumb"><a href="https://www.otexts.org/">Home</a> » Forecasting: principles and practice</nav></div>                <h1 class="page-title">Forecasting: principles and practice</h1>        <div class="tabs-wrapper clearfix"><h2 class="element-invisible">Primary tabs</h2><ul class="tabs primary clearfix"><li class="active"><a href="https://www.otexts.org/book/fpp" class="active">View<span class="element-invisible">(active tab)</span></a></li>
+<li><a href="https://www.otexts.org/node/89/members">Members</a></li>
+</ul></div>            <div class="region region-content">
+  <div id="block-system-main" class="block block-system">
+
+      
+  <div class="content">
+    <div class="panel-display panel-2col-bricks clearfix">
+  <div class="panel-panel panel-col-top">
+    <div class="inside"><div class="panel-pane pane-entity-field pane-node-field-printed-copy-info" id="printed_copy">
+  
+      
+  
+  <div class="pane-content">
+    <div class="field field-name-field-printed-copy-info field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><div align="center" style="font-size:160%; background-color:#EbEbEb; font-family:&#39;Droid Sans&#39;;"> <br><p></p>
+<p>A printed copy of this book is now available! </p>
+<p>You can order a copy on <a href="http://www.amazon.com/dp/0987507109?tag=otexts-20">Amazon.com</a>, <a href="http://www.amazon.co.uk/dp/0987507109?tag=otexts-21">Amazon.uk</a> or <a href="http://www.amazon.fr/gp/product/0987507109/ref=as_li_tf_tl?ie=UTF8&amp;camp=1642&amp;creative=6746&amp;creativeASIN=0987507109&amp;linkCode=as2&amp;tag=ote07d-21">Amazon.fr</a></p>
+<p>You can buy an electronic version for offline reading on <a href="https://play.google.com/store/books/details?id=gDuRBAAAQBAJ">Google play</a></p>
+<p>A 2nd edition of the book is available at <a href="http://otexts.org/fpp2/">OTexts.org/fpp2</a>.</p>
+<p><br></p>
+</div>
+
+
+</div></div></div>  </div>
+
+  
+  </div>
+</div>
+  </div>
+  <div class="center-wrapper">
+    <div class="panel-panel panel-col-first">
+      <div class="inside"><div class="panel-pane pane-entity-field pane-node-field-group-image">
+  
+      
+  
+  <div class="pane-content">
+    <div class="field field-name-field-group-image field-type-image field-label-hidden"><div class="field-items"><div class="field-item even"><a href="https://www.otexts.org/book/fpp" class="active"><img typeof="foaf:Image" src="./Forecasting_ principles and practice _ OTexts_files/fpp5.jpg" width="400" height="226" alt=""></a></div></div></div>  </div>
+
+  
+  </div>
+</div>
+    </div>
+
+    <div class="panel-panel panel-col-last">
+      <div class="inside"><div class="panel-pane pane-entity-field pane-node-body">
+  
+      
+  
+  <div class="pane-content">
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>Forecasting is required in many situations. Stocking an inventory may require forecasts of demand months in advance. Telecommunication routing requires traffic forecasts a few minutes ahead. Whatever the circumstances or time horizons involved, forecasting is an important aid in effective and efficient planning. </p>
+<p>This textbook provides a comprehensive introduction to forecasting methods and presents enough information about each method for readers to use them sensibly.</p>
+
+
+</div></div></div>  </div>
+
+  
+  </div>
+</div>
+    </div>
+  </div>
+  <div class="panel-panel panel-col-middle">
+    <div class="inside"><div class="panel-pane pane-views pane-og-admin-members">
+  
+        <h2 class="pane-title">Authors</h2>
+    
+  
+  <div class="pane-content">
+    <div class="view view-OG-admin-members view-id-OG_admin_members view-display-id-default view-dom-id-969be75378edbc41a2b5587048d43a63">
+        
+  
+  
+      <div class="view-content">
+      <table class="views-view-grid cols-3">
+  
+  <tbody>
+          <tr class="row-1 row-first row-last">
+                  <td class="col-1 col-first">
+              
+  <div class="views-field views-field-field-full-name">        <div class="field-content">Rob J Hyndman</div>  </div>  
+  <div class="views-field views-field-field-picture">        <div class="field-content"><a href="https://www.otexts.org/profile-main/4"><img typeof="foaf:Image" src="./Forecasting_ principles and practice _ OTexts_files/Hyndman_0.png" width="100" height="100" alt=""></a></div>  </div>          </td>
+                  <td class="col-2 col-last">
+              
+  <div class="views-field views-field-field-full-name">        <div class="field-content">George Athana­sopou­los</div>  </div>  
+  <div class="views-field views-field-field-picture">        <div class="field-content"><a href="https://www.otexts.org/profile-main/128"><img typeof="foaf:Image" src="./Forecasting_ principles and practice _ OTexts_files/Athanasopoulos.png" width="100" height="100" alt=""></a></div>  </div>          </td>
+              </tr>
+      </tbody>
+</table>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+
+  
+  </div>
+</div>
+  </div>
+  <div class="center-wrapper">
+    <div class="panel-panel panel-col-first">
+      <div class="inside"><div class="panel-pane pane-views-panes pane-my-og-content-panel-pane-1">
+  
+        <h2 class="pane-title">Table of contents</h2>
+    
+  
+  <div class="pane-content">
+    <div class="view view-my-og-content view-id-my_og_content view-display-id-panel_pane_1 view-dom-id-b9d05ee0af36a42b9b631973445b06ba">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp">Forecasting: principles and practice</a></span>  </div>  </div>
+  <div class="views-row views-row-2 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/1">Getting started</a></span>  </div>  </div>
+  <div class="views-row views-row-3 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/2">The forecaster's toolbox</a></span>  </div>  </div>
+  <div class="views-row views-row-4 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/3">Judgmental forecasts</a></span>  </div>  </div>
+  <div class="views-row views-row-5 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/4">Simple regression</a></span>  </div>  </div>
+  <div class="views-row views-row-6 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/5">Multiple regression</a></span>  </div>  </div>
+  <div class="views-row views-row-7 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/6">Time series decomposition</a></span>  </div>  </div>
+  <div class="views-row views-row-8 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/7">Exponential smoothing</a></span>  </div>  </div>
+  <div class="views-row views-row-9 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/8">ARIMA models</a></span>  </div>  </div>
+  <div class="views-row views-row-10 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/9">Advanced forecasting methods</a></span>  </div>  </div>
+  <div class="views-row views-row-11 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/data">Data</a></span>  </div>  </div>
+  <div class="views-row views-row-12 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/using-r">Using R</a></span>  </div>  </div>
+  <div class="views-row views-row-13 views-row-odd">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/resources">Resources</a></span>  </div>  </div>
+  <div class="views-row views-row-14 views-row-even views-row-last">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/reviews">Reviews</a></span>  </div>  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+
+  
+  </div>
+</div>
+    </div>
+
+    <div class="panel-panel panel-col-last">
+      <div class="inside"><div class="panel-pane pane-views-panes pane-recent-book-content-panel-pane-1">
+  
+        <h2 class="pane-title">Recently updated pages</h2>
+    
+  
+  <div class="pane-content">
+    <div class="view view-recent-book-content view-id-recent_book_content view-display-id-panel_pane_1 view-dom-id-8a8f15a0dc0dde8224f97212690cd256">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first">
+      
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp">Forecasting: principles and practice</a></span>  </span>      -  
+  <span class="views-field views-field-changed">        <span class="field-content">10 May 2018</span>  </span>  </div>
+  <div class="views-row views-row-2 views-row-even">
+      
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/resources">Resources</a></span>  </span>      -  
+  <span class="views-field views-field-changed">        <span class="field-content">12 Mar 2018</span>  </span>  </div>
+  <div class="views-row views-row-3 views-row-odd">
+      
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/3/3">Key principles</a></span>  </span>      -  
+  <span class="views-field views-field-changed">        <span class="field-content">20 Sep 2017</span>  </span>  </div>
+  <div class="views-row views-row-4 views-row-even">
+      
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/reviews">Reviews</a></span>  </span>      -  
+  <span class="views-field views-field-changed">        <span class="field-content">22 Nov 2016</span>  </span>  </div>
+  <div class="views-row views-row-5 views-row-odd">
+      
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/3/2">Beware of limitations</a></span>  </span>      -  
+  <span class="views-field views-field-changed">        <span class="field-content">02 Aug 2016</span>  </span>  </div>
+  <div class="views-row views-row-6 views-row-even">
+      
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/4/8">Regression with time series data</a></span>  </span>      -  
+  <span class="views-field views-field-changed">        <span class="field-content">25 Jun 2016</span>  </span>  </div>
+  <div class="views-row views-row-7 views-row-odd">
+      
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/9/1">Dynamic regression models</a></span>  </span>      -  
+  <span class="views-field views-field-changed">        <span class="field-content">05 Jun 2016</span>  </span>  </div>
+  <div class="views-row views-row-8 views-row-even">
+      
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/7/7">Innovations state space models for exponential smoothing</a></span>  </span>      -  
+  <span class="views-field views-field-changed">        <span class="field-content">12 May 2016</span>  </span>  </div>
+  <div class="views-row views-row-9 views-row-odd">
+      
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/5/5">Matrix formulation</a></span>  </span>      -  
+  <span class="views-field views-field-changed">        <span class="field-content">10 May 2016</span>  </span>  </div>
+  <div class="views-row views-row-10 views-row-even views-row-last">
+      
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/4/5">Forecasting with regression</a></span>  </span>      -  
+  <span class="views-field views-field-changed">        <span class="field-content">17 Apr 2016</span>  </span>  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+
+  
+  </div>
+</div>
+    </div>
+  </div>
+  <div class="panel-panel panel-col-bottom">
+    <div class="inside"><div class="panel-pane pane-views-panes pane-number-of-views-for-the-page-panel-pane-1">
+  
+        <h2 class="pane-title">Statistics : Total views</h2>
+    
+  
+  <div class="pane-content">
+    <div class="view view-number-of-views-for-the-page view-id-number_of_views_for_the_page view-display-id-panel_pane_1 view-dom-id-00248d9e25d1f93c37b72491b5d45a8a">
+        
+  
+  
+      <div class="view-content">
+      <table class="views-view-grid cols-2">
+  
+  <tbody>
+          <tr class="row-1 row-first">
+                  <td class="col-1 col-first">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp">Forecasting: principles and practice</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">1,032,107</span>  </span>          </td>
+                  <td class="col-2 col-last">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/1/4">Forecasting data and methods</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">243,255</span>  </span>          </td>
+              </tr>
+          <tr class="row-2">
+                  <td class="col-1 col-first">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/8/7">ARIMA modelling in R</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">434,839</span>  </span>          </td>
+                  <td class="col-2 col-last">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/1">Getting started</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">188,183</span>  </span>          </td>
+              </tr>
+          <tr class="row-3">
+                  <td class="col-1 col-first">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/7/1">Simple exponential smoothing</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">377,220</span>  </span>          </td>
+                  <td class="col-2 col-last">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/7/2">Holt's linear trend method</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">187,007</span>  </span>          </td>
+              </tr>
+          <tr class="row-4">
+                  <td class="col-1 col-first">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/8/1">Stationarity and differencing</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">370,479</span>  </span>          </td>
+                  <td class="col-2 col-last">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/8">ARIMA models</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">184,557</span>  </span>          </td>
+              </tr>
+          <tr class="row-5">
+                  <td class="col-1 col-first">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/6/1">Time series components</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">366,397</span>  </span>          </td>
+                  <td class="col-2 col-last">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/6/2">Moving averages</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">165,786</span>  </span>          </td>
+              </tr>
+          <tr class="row-6">
+                  <td class="col-1 col-first">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/7/5">Holt-Winters seasonal method</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">297,155</span>  </span>          </td>
+                  <td class="col-2 col-last">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/8/3">Autoregressive models</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">162,886</span>  </span>          </td>
+              </tr>
+          <tr class="row-7">
+                  <td class="col-1 col-first">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/4/8">Regression with time series data</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">287,659</span>  </span>          </td>
+                  <td class="col-2 col-last">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/9/1">Dynamic regression models</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">161,885</span>  </span>          </td>
+              </tr>
+          <tr class="row-8">
+                  <td class="col-1 col-first">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/8/9">Seasonal ARIMA models</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">277,034</span>  </span>          </td>
+                  <td class="col-2 col-last">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/1/1">What can be forecast?</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">156,869</span>  </span>          </td>
+              </tr>
+          <tr class="row-9">
+                  <td class="col-1 col-first">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/2/3">Some simple forecasting methods</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">271,431</span>  </span>          </td>
+                  <td class="col-2 col-last">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/8/5">Non-seasonal ARIMA models</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">152,615</span>  </span>          </td>
+              </tr>
+          <tr class="row-10 row-last">
+                  <td class="col-1 col-first">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/2/5">Evaluating forecast accuracy</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">261,876</span>  </span>          </td>
+                  <td class="col-2 col-last">
+              
+  <span class="views-field views-field-title">        <span class="field-content"><a href="https://www.otexts.org/fpp/6/5">STL decomposition</a></span>  </span>      -  
+  <span class="views-field views-field-totalcount">        <span class="field-content">146,147</span>  </span>          </td>
+              </tr>
+      </tbody>
+</table>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+
+  
+  </div>
+<div class="panel-separator"></div><div class="panel-pane pane-block pane-disqus-disqus-comments">
+  
+      
+  
+  <div class="pane-content">
+    <div id="disqus_thread"><iframe id="dsq-app8455" name="dsq-app8455" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Forecasting_ principles and practice _ OTexts_files/saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 8197px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>  </div>
+
+  
+  </div>
+</div>
+  </div>
+</div>
+  </div>
+  
+</div> <!-- /.block -->
+</div>
+ <!-- /.region -->
+  </section> <!-- /#main -->
+  
+    
+  <div class="clear"></div>
+  
+    
+  <!--END footer -->
+  
+  </div>
+  
+</div><iframe style="display: none;" src="./Forecasting_ principles and practice _ OTexts_files/saved_resource(1).html"></iframe></body></html>
